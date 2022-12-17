@@ -91,6 +91,7 @@ app.get("/:keyword/:keyword2", async (req, res) => {
 app.get("/:country", async (req, res) => {
   try {
     var result = [];
+    var test = [];
 
     await googleTrends
       .relatedTopics({ keyword: "/m/018jqx", geo: "CA" })
@@ -99,9 +100,14 @@ app.get("/:country", async (req, res) => {
 
         var spec = JSON.parse(results).default.rankedList[0];
 
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 20; i++) {
           //   console.log(spec.rankedKeyword[i]);
-          result.push(spec.rankedKeyword[i].topic.title);
+
+          var testString = spec.rankedKeyword[i].topic.type;
+
+          if (testString.includes("Ski resort") && result.length < 5) {
+            result.push(spec.rankedKeyword[i].topic.title);
+          }
         }
 
         console.log(result);

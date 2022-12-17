@@ -88,8 +88,8 @@ const App = ({
             ) : (
               <div>
                 <h6>Trending Searches</h6>
-                {keyArr.map((x) => (
-                  <div>{x}</div>
+                {keyArr.map((x, idx) => (
+                  <div key={`${x} ${idx}`}>{x}</div>
                 ))}
               </div>
             )}
