@@ -90,20 +90,29 @@ app.get("/:keyword/:keyword2", async (req, res) => {
 });
 app.get("/:country", async (req, res) => {
   try {
-    var result2 = [];
+    var result = [];
 
     await googleTrends
       .relatedTopics({ keyword: "/m/018jqx", geo: "CA" })
       .then(function (results) {
+        // console.log(results2);
+
         var spec = JSON.parse(results).default.rankedList[0];
 
         for (var i = 0; i < 5; i++) {
-          result2.push(spec.rankedKeyword[i].topic.title);
+          //   console.log(spec.rankedKeyword[i]);
+          result.push(spec.rankedKeyword[i].topic.title);
         }
-        // console.log(results);
 
-        res.json(results);
+        console.log(result);
+
+        //         var arr1 = JSON.parse(results2).default.topics[1].title
+        //         for (var i = 0; i < 5; i++) {
+        //             result2.push(arr1[i].title)
+        //         }
+        res.json(result);
       });
+    //res.json({'trend1':trend1,'trend2':trend2})
   } catch (err) {
     console.log(err);
   }
